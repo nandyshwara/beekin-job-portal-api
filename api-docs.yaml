@@ -1,0 +1,140 @@
+Documentation: REST APIs
+info:
+  title: "Beekin API"
+  version: "1.0.0"
+paths:
+  /users:
+    get:
+      summary: "Get all users"
+      responses:
+        200:
+          description: "Successful response"
+    post:
+      summary: "Sign up a new user"
+      parameters:
+        - name: "User Signup"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UserSignup"
+      responses:
+        201:
+          description: "User created successfully"
+  /users/login:
+    post:
+      summary: "Log in as a user"
+      parameters:
+        - name: "User Login"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/UserLogin"
+      responses:
+        200:
+          description: "Login successful"
+  /users/{id}:
+    get:
+      summary: "Get a single user by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "User found"
+  /users/current:
+    get:
+      summary: "Get current user's details"
+      responses:
+        200:
+          description: "Successful response"
+  paths:
+  /application:
+    get:
+      summary: "Get jobs applied by the user"
+      security:
+        - JWT: []
+      responses:
+        200:
+          description: "Successful response"
+  /application/apply/{jobId}:
+     post:
+      summary: "Apply for a job"
+      parameters:
+        - name: "Job Application"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/JobApplication"
+      security:
+        - JWT: []
+      responses:
+        200:
+          description: "Applied for the job successfully"
+  /jobs/all:
+    get:
+      summary: "Get all jobs"
+      parameters:
+        - name: "category"
+          in: "query"
+          type: "string"
+      responses:
+        200:
+          description: "Successful response"
+  /jobs/allcategories:
+    get:
+      summary: "Get all job categories"
+      responses:
+        200:
+          description: "Successful response"
+  /jobs/{jobId}:
+    get:
+      summary: "Get details of a specific job by ID"
+      parameters:
+        - name: "jobId"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Job found"
+  /jobs/create:
+    post:
+      summary: "Create a new job"
+      parameters:
+        - name: "Job"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Job"
+      responses:
+        201:
+          description: "Job created successfully"
+  /jobs/update/{jobId}:
+    put:
+      summary: "Update a job by ID"
+      parameters:
+        - name: "jobId"
+          in: "path"
+          required: true
+          type: "string"
+        - name: "Job"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Job"
+      responses:
+        200:
+          description: "Job updated"
+  /jobs/delete/{jobId}:
+    delete:
+      summary: "Delete a job by ID"
+      parameters:
+        - name: "jobId"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Job deleted"

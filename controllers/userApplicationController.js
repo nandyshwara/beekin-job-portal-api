@@ -12,12 +12,11 @@ const applyForJob = async (req, res) => {
 
     if (!job || !user) {
       console.log("Job or user not found");
-      return res.status(404).json({ error: "Job or user not found" });
+      return res.status(200).json({ message: "notfound" });
     }
 
     if (job.applicants.includes(_id) || user.appliedJobs.includes(jobId)) {
-      console.log("User has already applied for this job");
-      return res.status(400).json({ error: "User has already applied for this job" });
+      return res.status(200).json({ message: "exists" });
     }
 
     job.applicants.push(_id);
@@ -46,31 +45,15 @@ const getJobsApplied = async (req, res) => {
 
     const appliedJobs = user.appliedJobs;
 
-    res.status(200).json(appliedJobs);
+    const jobs = await Job.find({ _id: { $in: appliedJobs } });
+
+    res.status(200).json(jobs);
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve applications' });
-  }
-};
-
-
-const checkTheStatusOfTheJob = async (req, res) => {
-  try {
-    const applicationId = req.params.applicationId;
-
-    const application = await Application.findById(applicationId);
-
-    if (!application) {
-      res.status(404).json({ error: 'Application not found' });
-    } else {
-      res.status(200).json(application.status);
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve application status' });
   }
 };
 
 module.exports = {
   applyForJob,
   getJobsApplied,
-  checkTheStatusOfTheJob,
 };

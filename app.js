@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const { baseRoute } = require('./utils/baseRoutes');
 dotenv.config({ path: './.env' });
+
+
+
+
 const app = express();
 
 app.use(cors());
@@ -14,6 +18,7 @@ app.use(
     extended: true,
   }),
 );
+
 
 app.use(baseRoute + '/users', require("./routes/userRoutes"));
 app.use(baseRoute + '/jobs', require("./routes/jobRoutes"));
