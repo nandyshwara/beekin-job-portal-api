@@ -1,5 +1,5 @@
 # beekin-job-portal-api
-Step for Local Environment setup:
+Steps for Local Environment setup:
 
 **setp 1 : **
 https://github.com/nandyshwara/beekin-job-portal-api - clone this repo and create a new project folder in your local machine.
